@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WebGL Example</title>
+    <script type="text/glsl" id="vertexSource">
+
+        // attributes pull values from a buffer,
+        // which is set by a Javascript code
+        attribute vec2 position;
+        
+        // uniforms are global varibales 
+        // (do not change each time the vertex-shader is executed)
+        uniform vec3 uColor;
+
+        // varying is the only way to supply data from 
+        // a vertex shader to the corresponding fragment shader
+        varying vec3 color;
+
+        void main() {
+            gl_Position = vec4(position, 0.0, 1.0);
+            gl_PointSize = 10.0;
+            color = uColor;
+            // color = vec3(position, 0.7) + uColor;
+        }
+    </script>
+    <script type="text/glsl" id="fragmentSource">
+        precision mediump float;
+
+        // this variable is receiving its value from 
+        // the vertex shader (ref line 25 above)
+        varying vec3 color;
+
+        void main() {
+            gl_FragColor = vec4(color, 1.0);
+        }
+    </script>
+
+    <script src="./gl-util.js"></script>
+
+</head>
+
+<body>
+    <h1>WebGL Example</h1>
+
+    <div id="d1"></div>
+
+    <p>Increase the brightness:
+        <input type="range" min="1" max="100" value="0" id="slider1">
+    </p>
+    <p>contrast:
+        <input type="range" min="1" max="100" value="0" id="slider2">
+    </p>
+    <p>scaling:
+        <input type="range" min="1" max="100" value="0" id="slider3">
+    </p>
+
+    <!-- <script src="ex01.js"></script> -->
+    <!-- <script src="ex02.js"></script> -->
+    <!-- <script src="ex03.js"></script> -->
+    <!-- <script src="ex04.js"></script> -->
+    <script src="ex05.js"></script>
+</body>
+
+</html>
